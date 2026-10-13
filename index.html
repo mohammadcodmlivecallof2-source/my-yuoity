@@ -1,0 +1,252 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>RERALO | Digital Store</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#080808;--panel:#111;--line:#292929;--muted:#999;--white:#f5f5f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:Vazirmatn,Tahoma,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:10;background:#080808eF;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{max-width:1100px;margin:auto;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:25px;font-weight:900;letter-spacing:3px}
+.logo span{color:#888}
+.pill{border:1px solid #333;background:#141414;padding:9px 14px;border-radius:13px;color:white}
+main{max-width:1100px;margin:auto;padding:25px 20px 100px}
+.hero{border:1px solid #303030;border-radius:25px;padding:32px 24px;background:radial-gradient(ellipse at top left,#292929 0%,#131313 38%,#0b0b0b 80%);position:relative;overflow:hidden}
+.eyebrow{font-size:12px;color:#aaa;letter-spacing:3px}
+h1{font-size:clamp(35px,8vw,65px);line-height:1.2;margin:15px 0;font-weight:900}
+h1 span{color:#858585}
+.hero p{color:#aaa;line-height:2;max-width:480px;font-size:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.primary{background:#f1f1f1;color:#090909;border:0;border-radius:12px;padding:12px 18px;font-weight:800}
+.secondary{background:#171717;color:#fff;border:1px solid #383838;border-radius:12px;padding:12px 18px}
+.section{margin-top:34px;scroll-margin-top:90px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}
+h2{font-size:21px;margin:0}
+.sub{font-size:12px;color:var(--muted);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.card{border:1px solid var(--line);background:linear-gradient(145deg,#171717,#0d0d0d);padding:19px;border-radius:19px;transition:.2s;min-width:0}
+.card:hover{border-color:#777;transform:translateY(-3px)}
+.symbol{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#343434,#171717);border:1px solid #414141;font-size:23px}
+.card h3{font-size:16px;margin:14px 0 6px}
+.card p{font-size:12px;line-height:1.9;color:#999;min-height:44px}
+.price{font-size:14px;font-weight:800;margin:12px 0}
+.price small{font-weight:400;color:#999;font-size:11px}
+.add{width:100%;border:1px solid #444;background:#1e1e1e;color:white;border-radius:11px;padding:11px}
+.add:hover{background:#eee;color:#111}
+.rates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rate{padding:17px;border:1px solid var(--line);border-radius:17px;background:#101010}
+.rate small{color:#999}
+.rate strong{display:block;margin:10px 0;font-size:20px}
+.rate .change{font-size:11px;color:#aaa}
+.notice{border:1px solid #383838;border-radius:13px;padding:12px;margin-top:13px;font-size:11px;color:#aaa;line-height:2}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.toolbar input{flex:1;min-width:150px;background:#121212;color:white;border:1px solid #333;border-radius:11px;padding:11px}
+.cart-row{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #252525;padding:13px 0;font-size:13px}
+.cart-row button{background:none;border:0;color:#aaa}
+.empty{color:#888;font-size:13px;padding:20px 0}
+.cart-total{display:flex;justify-content:space-between;margin:20px 0;font-weight:800}
+.modal{position:fixed;inset:0;background:#000c;z-index:30;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.dialog{width:100%;max-width:450px;max-height:90vh;overflow:auto;background:#121212;border:1px solid #444;border-radius:22px;padding:23px}
+.dialog h2{margin-bottom:10px}
+.dialog p{font-size:12px;color:#aaa;line-height:2}
+.dialog input,.dialog select{width:100%;margin:7px 0;background:#090909;color:white;border:1px solid #353535;border-radius:11px;padding:12px}
+.dialog .primary,.dialog .secondary{width:100%;margin-top:10px}
+footer{border-top:1px solid #292929;padding:27px 20px;text-align:center;color:#888;font-size:12px;line-height:2.2}
+.footer-links{display:flex;justify-content:center;gap:17px;flex-wrap:wrap;margin:12px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#eee;color:#111;padding:12px 18px;border-radius:12px;z-index:50;display:none;font-size:13px;max-width:90%;text-align:center}
+@media(max-width:650px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rates{grid-template-columns:1fr}.hero{padding:25px 19px}.card{padding:13px}.card h3{font-size:14px}.nav{padding:12px}.logo{font-size:21px}}
+@media(max-width:370px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="nav">
+  <a href="#" class="logo">RERALO<span>.</span></a>
+  <div style="display:flex;gap:8px">
+   <a class="pill" href="#products">فروشگاه</a>
+   <button class="pill" onclick="goCart()">🛒 <span id="count">0</span></button>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="hero">
+ <div class="eyebrow">RERALO DIGITAL EXPERIENCE</div>
+ <h1>YOUR DIGITAL<br><span>WORLD.</span></h1>
+ <p>فروشگاه دیجیتال Reralo؛ دنیای استارز، پریمیوم، گیفت تلگرام و یوزرنیم‌های خاص در یک فضای مدرن و مینیمال.</p>
+ <div class="actions">
+  <a class="primary" href="#products">مشاهده محصولات ↙</a>
+  <a class="secondary" href="#rates">نرخ ارزها</a>
+ </div>
+ <div style="margin-top:25px;font-size:11px;color:#888">MINIMAL DESIGN · PREMIUM EXPERIENCE</div>
+</section>
+
+<section class="section" id="products">
+ <div class="section-head">
+  <div><h2>فروشگاه محصولات</h2><div class="sub">محصولت رو انتخاب کن</div></div>
+  <span class="sub">RERALO SHOP</span>
+ </div>
+ <div class="toolbar">
+  <input id="search" placeholder="جست‌وجوی محصول..." oninput="renderProducts()">
+  <select id="filter" onchange="renderProducts()" style="background:#121212;color:white;border:1px solid #333;border-radius:11px;padding:10px">
+   <option value="all">همه محصولات</option>
+   <option value="stars">استارز</option>
+   <option value="premium">پریمیوم</option>
+   <option value="gifts">گیفت</option>
+   <option value="usernames">یوزرنیم</option>
+   <option value="ton">TON و خدمات</option>
+  </select>
+ </div>
+ <div class="grid" id="productsGrid"></div>
+</section>
+
+<section class="section" id="rates">
+ <div class="section-head">
+  <div><h2>Currency Market</h2><div class="sub">نمایش نرخ ارز</div></div>
+  <span class="pill">💱 ارزها</span>
+ </div>
+ <div class="rates">
+  <div class="rate"><small>🇺🇸 دلار آمریکا · USD</small><strong id="usd">۱۱۰٬۰۰۰ تومان</strong><div class="change">نرخ نمونه نمایشی</div></div>
+  <div class="rate"><small>₮ تتر · USDT</small><strong id="usdt">۱۱۲٬۰۰۰ تومان</strong><div class="change">نرخ نمونه نمایشی</div></div>
+  <div class="rate"><small>🇪🇺 یورو · EUR</small><strong id="eur">۱۲۵٬۰۰۰ تومان</strong><div class="change">نرخ نمونه نمایشی</div></div>
+ </div>
+ <div class="notice">⚠️ نرخ‌های بالا صرفاً نمونه هستند و قیمت لحظه‌ای بازار نیستند. برای نمایش نرخ واقعی بازار ایران باید منبع داده معتبر به سایت متصل شود.</div>
+</section>
+
+<section class="section" id="cart">
+ <div class="section-head"><div><h2>سبد خرید</h2><div class="sub">سفارش نمایشی شما</div></div></div>
+ <div class="card">
+  <div id="cartItems"><div class="empty">هنوز محصولی انتخاب نکردی.</div></div>
+  <div class="cart-total"><span>مجموع</span><span id="total">۰ تومان</span></div>
+  <button class="primary" style="width:100%" onclick="checkout()">ادامه و ثبت سفارش ←</button>
+  <div class="sub" style="margin-top:12px">ثبت سفارش در این نسخه نمایشی است؛ پرداخت واقعی انجام نمی‌شود.</div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="grid">
+  <div class="card"><div class="symbol">🔒</div><h3>تجربه امن</h3><p>طراحی با تمرکز بر شفافیت سفارش و حفاظت از اطلاعات کاربر.</p></div>
+  <div class="card"><div class="symbol">🎫</div><h3>پشتیبانی</h3><p>برای پرسش‌ها و سفارش‌های اختصاصی با پشتیبانی تماس بگیر.</p><a href="https://t.me/Reralo" class="secondary" style="display:block;text-align:center;padding:9px">تماس با ما</a></div>
+  <div class="card"><div class="symbol">📦</div><h3>پیگیری سفارش</h3><p>پس از ثبت آزمایشی سفارش، یک کد پیگیری نمایشی دریافت می‌کنی.</p><button class="add" onclick="trackOrder()">پیگیری سفارش</button></div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="logo">RERALO<span>.</span></div>
+ Digital products · Premium lifestyle
+ <div class="footer-links">
+  <a href="https://t.me/Reralo">تلگرام پشتیبانی</a>
+  <a href="https://t.me/Reralobot">ربات تلگرام</a>
+  <a href="#rates">نرخ ارز</a>
+  <a href="#products">فروشگاه</a>
+ </div>
+ © 2026 RERALO — Demo Store
+</footer>
+
+<div class="modal" id="modal">
+ <div class="dialog" id="dialog"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const products=[
+ {id:1,cat:'stars',icon:'⭐',name:'Telegram Stars',desc:'خرید استارز برای امکانات تلگرام',price:0},
+ {id:2,cat:'stars',icon:'✨',name:'بسته ۱۰۰ استارز',desc:'بسته استارز تلگرام',price:0},
+ {id:3,cat:'stars',icon:'🌟',name:'بسته ۵۰۰ استارز',desc:'بسته بزرگ‌تر استارز',price:0},
+ {id:4,cat:'premium',icon:'💎',name:'Premium یک‌ماهه',desc:'اشتراک پریمیوم تلگرام',price:0},
+ {id:5,cat:'premium',icon:'👑',name:'Premium سه‌ماهه',desc:'اشتراک سه‌ماهه تلگرام',price:0},
+ {id:6,cat:'premium',icon:'💠',name:'Premium دوازده‌ماهه',desc:'اشتراک یک‌ساله تلگرام',price:0},
+ {id:7,cat:'gifts',icon:'🎁',name:'Telegram Gifts',desc:'گیفت‌های جذاب تلگرام',price:0},
+ {id:8,cat:'gifts',icon:'🎀',name:'Collectible Gifts',desc:'گیفت‌های کلکسیونی',price:0},
+ {id:9,cat:'usernames',icon:'👤',name:'Username خاص',desc:'یوزرنیم‌های ویژه و خاص',price:0},
+ {id:10,cat:'usernames',icon:'💫',name:'Collectible Username',desc:'یوزرنیم کلکسیونی از Fragment',price:0},
+ {id:11,cat:'ton',icon:'💠',name:'TON Services',desc:'خدمات مرتبط با اکوسیستم TON',price:0},
+ {id:12,cat:'ton',icon:'🛠',name:'سفارش اختصاصی',desc:'استعلام خدمات دیجیتال دیگر',price:0}
+];
+let cart=[];
+let lastOrder=null;
+const money=n=>Number(n).toLocaleString('fa-IR')+' تومان';
+function toast(t){let el=document.getElementById('toast');el.textContent=t;el.style.display='block';setTimeout(()=>el.style.display='none',2600)}
+function renderProducts(){
+ const q=document.getElementById('search').value.trim().toLowerCase();
+ const f=document.getElementById('filter').value;
+ let list=products.filter(p=>(f==='all'||p.cat===f)&&(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)));
+ document.getElementById('productsGrid').innerHTML=list.map(p=>`
+ <article class="card">
+  <div class="symbol">${p.icon}</div><h3>${p.name}</h3><p>${p.desc}</p>
+  <div class="price">${p.price?money(p.price):'استعلام قیمت'} <small> / محصول</small></div>
+  <button class="add" onclick="addToCart(${p.id})">+ افزودن به سبد</button>
+ </article>`).join('')||'<div class="empty">محصولی پیدا نشد.</div>';
+}
+function addToCart(id){
+ let p=products.find(x=>x.id===id);
+ let old=cart.find(x=>x.id===id);
+ if(old)old.qty++;else cart.push({...p,qty:1});
+ renderCart();toast('محصول به سبد اضافه شد');
+}
+function renderCart(){
+ document.getElementById('count').textContent=cart.reduce((s,x)=>s+x.qty,0).toLocaleString('fa-IR');
+ document.getElementById('cartItems').innerHTML=cart.length?cart.map(x=>`
+ <div class="cart-row"><div>${x.icon} ${x.name}<br><span class="sub">تعداد: ${x.qty.toLocaleString('fa-IR')}</span></div>
+ <div style="text-align:left">${x.price?money(x.price*x.qty):'استعلام قیمت'}<br><button onclick="removeItem(${x.id})">حذف ✕</button></div></div>`).join(''):'<div class="empty">هنوز محصولی انتخاب نکردی.</div>';
+ document.getElementById('total').textContent=cart.some(x=>!x.price)?'نیازمند استعلام':money(cart.reduce((s,x)=>s+x.price*x.qty,0));
+}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);renderCart()}
+function goCart(){document.getElementById('cart').scrollIntoView({behavior:'smooth'})}
+function openModal(html){document.getElementById('dialog').innerHTML=html;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+function checkout(){
+ if(!cart.length){toast('اول محصولی به سبد اضافه کن');return}
+ openModal(`<h2>🛒 ثبت سفارش نمایشی</h2>
+ <p>اطلاعات زیر فقط در همین نسخه نمایشی استفاده می‌شود.</p>
+ <form onsubmit="submitOrder(event)">
+ <input id="customer" required maxlength="70" placeholder="نام شما">
+ <input id="telegram" placeholder="آیدی تلگرام (اختیاری)" maxlength="50">
+ <input id="phone" placeholder="شماره تماس (اختیاری)" maxlength="20">
+ <p>مجموع: ${document.getElementById('total').textContent}</p>
+ <button class="primary" type="submit">ثبت سفارش آزمایشی</button>
+ <button class="secondary" type="button" onclick="closeModal()">انصراف</button>
+ </form>`);
+}
+function submitOrder(e){
+ e.preventDefault();
+ lastOrder='RR-'+Date.now().toString().slice(-8);
+ const name=document.getElementById('customer').value;
+ const tg=document.getElementById('telegram').value;
+ const phone=document.getElementById('phone').value;
+ const lines=cart.map(x=>x.name+' × '+x.qty).join('\n');
+ const msg=`سفارش نمایشی RERALO\nکد: ${lastOrder}\nنام: ${name}\nتلگرام: ${tg||'ثبت نشده'}\nتلفن: ${phone||'ثبت نشده'}\nمحصولات:\n${lines}\nمبلغ: ${document.getElementById('total').textContent}`;
+ openModal(`<h2>✅ سفارش نمایشی ثبت شد</h2>
+ <p>کد پیگیری آزمایشی شما:</p>
+ <div style="background:#080808;border:1px solid #444;border-radius:12px;padding:17px;text-align:center;font-size:23px;font-weight:800;direction:ltr">${lastOrder}</div>
+ <p>این سفارش به سرور یا فروشنده ارسال نشده و پرداختی انجام نشده است.</p>
+ <button class="primary" onclick="copyOrder()">کپی اطلاعات سفارش</button>
+ <button class="secondary" onclick="closeModal()">بستن</button>`);
+ window.demoOrderText=msg;
+ cart=[];renderCart();
+}
+function copyOrder(){
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(window.demoOrderText).then(()=>toast('اطلاعات کپی شد')).catch(()=>toast('کپی انجام نشد'))}
+ else toast('برای کپی، از مرورگر امن استفاده کن');
+}
+function trackOrder(){
+ if(!lastOrder){toast('هنوز سفارش نمایشی ثبت نکردی');return}
+ openModal(`<h2>🎫 پیگیری سفارش</h2><p>کد: ${lastOrder}</p><p>وضعیت: ثبت آزمایشی در مرورگر</p><p>این کد در سیستم واقعی سفارش ثبت نشده است.</p><button class="primary" onclick="closeModal()">متوجه شدم</button>`);
+}
+renderProducts();renderCart();
+</script>
+</body>
+</html>
+```
